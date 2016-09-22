@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -11,6 +12,18 @@ public class MainActivity extends AppCompatActivity {
     //Wiring up buttons
     private Button mTrueButton;
     private Button mFalseButton;
+    private Button mNextButton;
+    private TextView mQuestionTextView;
+
+    private TrueFalse[] mQuestionBank = new TrueFalse[]{
+            new TrueFalse(R.string.question_oceans,true),
+            new TrueFalse(R.string.question_mideast,false),
+            new TrueFalse(R.string.question_africa,false),
+            new TrueFalse(R.string.question_americas,true),
+            new TrueFalse(R.string.question_asia,true),
+    };
+
+    private int mCurrentIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         //Connecting Button objects to the proper view
         mFalseButton = (Button) findViewById(R.id.false_id);
         mTrueButton = (Button) findViewById(R.id.true_id);
+        mNextButton = (Button) findViewById(R.id.next_id);
+        mQuestionTextView = (TextView) findViewById(R.id.questionTextView);
+        updateQuestion();
 
         //Set up Listeners for the buttons
 
@@ -27,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Stuff
-                Toast.makeText(getApplicationContext(),R.string.incorrect_toast,Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(),R.string.incorrect_toast,Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -35,8 +51,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Stuff
-                Toast.makeText(getApplicationContext(),R.string.correct_toast,Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(),R.string.correct_toast,Toast.LENGTH_SHORT).show();
             }
         });
+
+        mNextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCurrentIndex = (mCurrentIndex+1)%mQuestionBank.length;
+                updateQuestion();
+            }
+        });
+
+
+    }
+
+    private void updateQuestion()
+    {
+        int question = mQuestionBank[mCurrentIndex].getQuestion();
+        mQuestionTextView.setText(question);
     }
 }

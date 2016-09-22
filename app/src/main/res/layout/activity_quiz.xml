@@ -12,16 +12,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/textView2" />
+        android:id="@+id/questionTextView" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/questionTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="85dp">
 
@@ -39,4 +38,12 @@
             android:id="@+id/false_id"
             android:layout_gravity="center_vertical" />
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next_btn"
+        android:id="@+id/next_id"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

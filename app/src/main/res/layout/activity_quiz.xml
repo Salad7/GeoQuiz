@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/questionTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="85dp">
+        android:id="@+id/linearLayout">
 
         <Button
             android:layout_width="wrap_content"
@@ -35,8 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/false_btn"
-            android:id="@+id/false_id"
-            android:layout_gravity="center_vertical" />
+            android:id="@+id/false_id" />
     </LinearLayout>
 
     <Button
@@ -46,4 +45,13 @@
         android:id="@+id/next_id"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cheat_btn"
+        android:id="@+id/cheat_btn"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="82dp" />
 </RelativeLayout>

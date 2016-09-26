@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/warning_text"
+        android:id="@+id/warningtxt"
         android:padding="24dp"
         android:layout_gravity="center_horizontal" />
 

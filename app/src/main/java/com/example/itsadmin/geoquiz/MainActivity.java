@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mFalseButton;
     private Button mNextButton;
     private Button mCheatButton;
+    private boolean mIsCheater;
     private TextView mQuestionTextView;
     private static final String TAG = "MainActivity";
     private static final String KEY_INDEX = "index";
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX,0);
         }
+
         //Connecting Button objects to the proper view
         mFalseButton = (Button) findViewById(R.id.false_id);
         mTrueButton = (Button) findViewById(R.id.true_id);
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex+1)%mQuestionBank.length;
+                mIsCheater = false;
                 updateQuestion();
             }
         });
@@ -82,7 +85,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Change activities,
                 Intent barbie = new Intent(getApplicationContext(),CheatActivity.class);
-                startActivity(barbie);
+                boolean isAnswerTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
+                barbie.putExtra(CheatActivity.EXTRA_ANSWER_IS_TRUE,isAnswerTrue);
+                startActivityForResult(barbie,0);
             }
         });
 
@@ -97,12 +102,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void isCorrect(boolean input)
     {
-        if(input == mQuestionBank[mCurrentIndex].isTrueQuestion())
+        if(mIsCheater)
         {
-            Toast.makeText(getApplicationContext(),R.string.correct_toast,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),R.string.judgement_toast,Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(getApplicationContext(), R.string.incorrect_toast, Toast.LENGTH_SHORT).show();
+            if (input == mQuestionBank[mCurrentIndex].isTrueQuestion()) {
+                Toast.makeText(getApplicationContext(), R.string.correct_toast, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), R.string.incorrect_toast, Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
@@ -113,5 +122,15 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstance);
         Log.i(TAG,"OnSaveInstanceState");
         savedInstance.putInt(KEY_INDEX,mCurrentIndex);
+    }
+
+    @Override
+    protected  void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(data == null)
+        {
+            return;
+        }
+        mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_IS_SHOWN, false);
     }
 }

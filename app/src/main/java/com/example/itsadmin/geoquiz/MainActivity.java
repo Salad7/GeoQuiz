@@ -1,5 +1,6 @@
 package com.example.itsadmin.geoquiz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mTrueButton;
     private Button mFalseButton;
     private Button mNextButton;
+    private Button mCheatButton;
     private TextView mQuestionTextView;
     private static final String TAG = "MainActivity";
     private static final String KEY_INDEX = "index";
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         mFalseButton = (Button) findViewById(R.id.false_id);
         mTrueButton = (Button) findViewById(R.id.true_id);
         mNextButton = (Button) findViewById(R.id.next_id);
+        mCheatButton = (Button) findViewById(R.id.cheat_btn);
         mQuestionTextView = (TextView) findViewById(R.id.questionTextView);
         updateQuestion();
 
@@ -71,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex+1)%mQuestionBank.length;
                 updateQuestion();
+            }
+        });
+
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Change activities,
+                Intent barbie = new Intent(getApplicationContext(),CheatActivity.class);
+                startActivity(barbie);
             }
         });
 
